@@ -1,0 +1,1 @@
+/home/claudio/work/xenomai/xenomai-3.0.6/kernel/cobalt/include/asm-generic/xenomai/syscall32.h
