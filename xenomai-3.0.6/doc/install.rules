@@ -1,0 +1,56 @@
+# -*- makefile -*-
+# Generic rules for installation and distribution of documentation.
+#
+# Parameters :
+# HTML_DOCS list of html documentation directories
+# PDF_DOCS list of pdf files
+# MAN1_DOCS list of man1 files
+#
+# HTML_DOCSDIR: root of generated HTML files
+# PDF_DOCSDIR: root of generated PDF files
+# MAN_DOCSDIR: root of generated manN sub-directories
+
+install-htmldocs: $(HTML_DOCS:%=$(HTML_DOCSDIR)%)
+	docs="$(HTML_DOCS)"; abs_builddir=$$PWD; \
+	for dir in $$docs; do \
+	    dest=$(DESTDIR)$(htmldir)/$$dir; \
+	    $(mkinstalldirs) $$dest; \
+	    abs_dest=`cd $$dest && pwd` ; \
+	    cd $(HTML_DOCSDIR)$$dir || exit 1; \
+	    for f in * ; do \
+		case $$f in \
+		    *~|CVS|.svn|[mM]akefile*|GNUmakefile*);; \
+		    *) $(INSTALL_DATA) $$f $$abs_dest/$$f;; \
+		esac; \
+	    done; cd $$abs_builddir; \
+	done
+
+install-pdfdocs: $(PDF_DOCS:%=$(PDF_DOCSDIR)%)
+	docs="$^"; dest=$(DESTDIR)$(pdfdir); \
+	$(mkinstalldirs) $$dest && \
+	for f in $$docs; do \
+	    $(INSTALL_DATA) $$f $$dest; \
+	done
+
+install-man1: $(MAN1_DOCS:%=$(MAN_DOCSDIR)%)
+	docs="$^"; dest=$(DESTDIR)$(mandir)/man1; \
+	$(mkinstalldirs) $$dest && \
+	for f in $$docs; do \
+	    $(INSTALL_DATA) $$f $$dest; \
+	done
+
+install-mandocs: install-man1
+
+install-docs-local: install-htmldocs install-pdfdocs install-mandocs
+
+# To make distcheck happy.
+uninstall-docs:
+	if test -n "$(HTML_DOCS)" -o -n "$(PDF_DOCS)" -o -n "$(MAN1_DOCS)"; then \
+	    targets="$(HTML_DOCS:%=$(DESTDIR)$(htmldir)/%) \
+		$(PDF_DOCS:%=$(DESTDIR)$(pdfdir)/%) \
+		$(MAN1_DOCS:%=$(DESTDIR)$(mandir)/%)"; \
+	    for t in $$targets; do \
+		if test -d $$t; then $(RM) $$t/*; $(RM) -r $$t; \
+		else $(RM) $$t; fi; \
+	    done; \
+	fi
