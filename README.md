@@ -77,7 +77,7 @@ User-space tools
 
 The Xenomai user-space tools can be natively built as follows:
 
-       cd linux-4.9.51
+       cd xenomai-3.0.6
 
        ./configure --enable-smp -with-core=cobalt
 
