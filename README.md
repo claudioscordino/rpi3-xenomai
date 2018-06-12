@@ -22,25 +22,23 @@ System setup
 Kernel build
 ------------
 
-The kernel has been already patched through
+To configure the kernel (optional) type:
 
-        xenomai-3.0.6/scripts/prepare-kernel.sh --arch=arm --ipipe=ipipe-core-4.9.51-arm-4.patch --linux=linux-4.9.51
+        export CROSS_COMPILE=arm-linux-gnueabihf- (or your specific toolchain)
+
+        make configure
 
 To cross-compile the kernel follow the next steps:
 
-        export CROSS_COMPILE=arm-linux-gnueabihf-
+        export CROSS_COMPILE=arm-linux-gnueabihf- (or your specific toolchain)
 
-        cd linux-4.9.51
+        make kernel
 
-        make ARCH=arm O=build/linux multi_v7_defconfig
+Note that the kernel has been already patched through
 
-        cp -f ../config linux-4.9.51/build/linux/.config
+        xenomai-3.0.6/scripts/prepare-kernel.sh --arch=arm --ipipe=ipipe-core-4.9.51-arm-4.patch --linux=linux-4.9.51
 
-        make ARCH=arm O=build/linux menuconfig
-
-        make ARCH=arm O=build/linux -j4 bzImage modules dtbs
-
-        make ARCH=arm O=build/linux modules_install INSTALL_MOD_PATH=MODULES
+Note that the initial default kernel configuration is stored in the ```kernel/kernel-config``` file.
 
 
 Kernel installation
@@ -48,9 +46,9 @@ Kernel installation
 
 * Copy the following files to the target:
 
-  * ```build/linux/arch/arm/boot/dts/bcm2837-rpi-3-b-cobalt.dtb``` -> ```/boot/```
-  * ```build/linux/arch/arm/boot/zImage``` -> ```/boot/kernel-xenomai.img```
-  * ```build/linux/MODULES/``` -> ```/lib/modules```
+  * ```kernel/linux-4.9.51/build/linux/arch/arm/boot/dts/bcm2837-rpi-3-b-cobalt.dtb``` -> ```/boot/```
+  * ```kernel/linux-4.9.51/build/linux/arch/arm/boot/zImage``` -> ```/boot/kernel-xenomai.img```
+  * ```kernel/linux-4.9.51/build/linux/MODULES/``` -> ```/lib/modules```
 
 * Append to ```/boot/config.txt```:
 
@@ -65,25 +63,22 @@ Kernel installation
 Drivers build
 -------------
 
-The exemplary drivers can be built by setting the following environment variables:
 
-* ```CROSS_COMPILE```
-* ```XENOMAI_DIR```
-* ```KERNEL_DIR```
+To cross-compile the exemplary drivers follow the next steps:
+
+        export CROSS_COMPILE=arm-linux-gnueabihf- (or your specific toolchain)
+
+        make drivers
 
 
 User-space tools
 ----------------
 
-The Xenomai user-space tools can be natively built on the Rpi3 target as follows:
+To natively compile the Xenomai user-space tools on the Rpi3 target, type:
 
-       cd xenomai-3.0.6
+       make tools
 
-       ./configure --enable-smp --with-core=cobalt
-
-       make -j4
-
-       sudo make install
+       sudo make tools_install
 
  To run the default benchmark, type
 
