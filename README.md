@@ -34,7 +34,7 @@ To cross-compile the kernel follow the next steps:
 
         make ARCH=arm O=build/linux multi_v7_defconfig
 
-        make ARCH=arm O=build/linux menuconfig
+        cp -f ../config linux-4.9.51/build/linux/.config
 
         make ARCH=arm O=build/linux -j4 bzImage modules dtbs
 
