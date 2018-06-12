@@ -42,8 +42,6 @@ To cross-compile the kernel follow the next steps:
 
         make ARCH=arm O=build/linux modules_install INSTALL_MOD_PATH=MODULES
 
-Note that a default config file is available in the ```config``` file.
-
 
 Kernel installation
 -------------------
@@ -77,7 +75,7 @@ The exemplary drivers can be built by setting the following environment variable
 User-space tools
 ----------------
 
-The Xenomai user-space tools can be natively built as follows:
+The Xenomai user-space tools can be natively built on the Rpi3 target as follows:
 
        cd xenomai-3.0.6
 
