@@ -36,6 +36,8 @@ To cross-compile the kernel follow the next steps:
 
         cp -f ../config linux-4.9.51/build/linux/.config
 
+        make ARCH=arm O=build/linux menuconfig
+
         make ARCH=arm O=build/linux -j4 bzImage modules dtbs
 
         make ARCH=arm O=build/linux modules_install INSTALL_MOD_PATH=MODULES
@@ -79,7 +81,7 @@ The Xenomai user-space tools can be natively built as follows:
 
        cd xenomai-3.0.6
 
-       ./configure --enable-smp -with-core=cobalt
+       ./configure --enable-smp --with-core=cobalt
 
        make -j4
 
