@@ -4,13 +4,13 @@ export XENOMAI_DIR := $(PWD)/xenomai-3.0.6
 
 .PHONY: clean kernel drivers tools tools_install configure xenomai_kernel
 
-kernel: $(KERNEL_DIR)/.config xenomai_kernel
+kernel: xenomai_kernel $(KERNEL_DIR)/.config
 	make  -C $(LINUX_DIR) ARCH=arm O=build/linux -j4 bzImage modules dtbs
 	make  -C $(LINUX_DIR) ARCH=arm O=build/linux modules_install INSTALL_MOD_PATH=MODULES
 
 
 xenomai_kernel:
-	./xenomai-3.0.6/scripts/prepare-kernel.sh --arch=arm --ipipe=./kernel/ipipe-core-4.9.51-arm-4.patch --linux=./kernel/linux-4.9.51
+	$(XENOMAI_DIR)/scripts/prepare-kernel.sh --arch=arm --ipipe=./kernel/ipipe-core-4.9.51-arm-4.patch --linux=$(LINUX_DIR)
 
 
 $(KERNEL_DIR)/.config:
@@ -18,7 +18,7 @@ $(KERNEL_DIR)/.config:
 	cp -f kernel/kernel-config kernel/linux-4.9.51/build/linux/.config
 
 
-configure: $(KERNEL_DIR)/.config xenomai_kernel
+configure: xenomai_kernel $(KERNEL_DIR)/.config
 	make  -C $(LINUX_DIR) ARCH=arm O=build/linux menuconfig
 
 
@@ -30,12 +30,11 @@ drivers: kernel
 
 tools:
 	cd $(XENOMAI_DIR); ./configure --enable-smp --with-core=cobalt
-	make -j4
+	make -C $(XENOMAI_DIR) -j4
 
 
 tools_install:
-	cd $(XENOMAI_DIR)
-	make install
+	make -C xenomai-3.0.6 install
 
 
 clean:

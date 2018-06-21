@@ -34,10 +34,6 @@ To cross-compile the kernel follow the next steps:
 
         make kernel
 
-Note that the kernel has been already patched through
-
-        xenomai-3.0.6/scripts/prepare-kernel.sh --arch=arm --ipipe=ipipe-core-4.9.51-arm-4.patch --linux=linux-4.9.51
-
 Note that the initial default kernel configuration is stored in the ```kernel/kernel-config``` file.
 
 
@@ -91,5 +87,6 @@ References
 * I-pipe download: https://xenomai.org/downloads/ipipe/
 * Xenomai download: https://xenomai.org/downloads/xenomai/stable/latest/
 * I-pipe tracer: https://xenomai.org/2014/06/using-the-i-pipe-tracer/
+* Xenomai driver programming API: https://xenomai.org/documentation/xenomai-3/html/xeno3prm/group__rtdm__driver__interface.html
 
 
