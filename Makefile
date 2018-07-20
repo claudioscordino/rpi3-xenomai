@@ -24,6 +24,7 @@ configure: xenomai_kernel $(KERNEL_DIR)/.config
 
 drivers: kernel
 	make -C drivers/RTDM_gpio_driver
+	make -C drivers/RTDM_gpio_sampling_driver
 	make -C drivers/RTDM_gpio_wave_driver
 	make -C drivers/RTDM_timer_driver
 
@@ -42,4 +43,5 @@ clean:
 	make -C drivers/RTDM_gpio_driver clean
 	make -C drivers/RTDM_gpio_wave_driver clean
 	make -C drivers/RTDM_timer_driver clean
+	make -C drivers/RTDM_gpio_sampling_driver clean
 
