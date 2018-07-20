@@ -1,6 +1,6 @@
-export LINUX_DIR := $(PWD)/kernel/linux-4.9.51
+export LINUX_DIR := $(PWD)/kernel/linux-4.14.36
 export KERNEL_DIR := $(LINUX_DIR)/build/linux
-export XENOMAI_DIR := $(PWD)/xenomai-3.0.6
+export XENOMAI_DIR := $(PWD)/xenomai-3.0.7
 
 .PHONY: clean kernel drivers tools tools_install configure xenomai_kernel
 
@@ -10,12 +10,12 @@ kernel: xenomai_kernel $(KERNEL_DIR)/.config
 
 
 xenomai_kernel:
-	$(XENOMAI_DIR)/scripts/prepare-kernel.sh --arch=arm --ipipe=./kernel/ipipe-core-4.9.51-arm-4.patch --linux=$(LINUX_DIR)
+	$(XENOMAI_DIR)/scripts/prepare-kernel.sh --arch=arm --ipipe=./kernel/ipipe-core-4.14.36-arm-1.patch --linux=$(LINUX_DIR)
 
 
 $(KERNEL_DIR)/.config:
 	make -C $(LINUX_DIR) ARCH=arm O=build/linux multi_v7_defconfig
-	cp -f kernel/kernel-config kernel/linux-4.9.51/build/linux/.config
+	cp -f kernel/kernel-config kernel/linux-4.14.36/build/linux/.config
 
 
 configure: xenomai_kernel $(KERNEL_DIR)/.config
@@ -34,7 +34,7 @@ tools:
 
 
 tools_install:
-	make -C xenomai-3.0.6 install
+	make -C xenomai-3.0.7 install
 
 
 clean:

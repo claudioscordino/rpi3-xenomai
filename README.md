@@ -1,4 +1,4 @@
-Xenomai 3.0.6 on Raspberry Pi 3
+Xenomai 3.0.7 on Raspberry Pi 3
 ===============================
 
 This short guide explains how to put Xenomai 3 Cobalt on the Raspberry Pi 3.
@@ -42,13 +42,13 @@ Kernel installation
 
 * Copy the following files to the target:
 
-  * ```kernel/linux-4.9.51/build/linux/arch/arm/boot/dts/bcm2837-rpi-3-b-cobalt.dtb``` -> ```/boot/```
-  * ```kernel/linux-4.9.51/build/linux/arch/arm/boot/zImage``` -> ```/boot/kernel-xenomai.img```
-  * ```kernel/linux-4.9.51/build/linux/MODULES/``` -> ```/lib/modules```
+  * ```kernel/linux-4.14.36/build/linux/arch/arm/boot/dts/bcm2837-rpi-3-b.dtb``` -> ```/boot/```
+  * ```kernel/linux-4.14.36/build/linux/arch/arm/boot/zImage``` -> ```/boot/kernel-xenomai.img```
+  * ```kernel/linux-4.14.36/build/linux/MODULES/``` -> ```/lib/modules```
 
 * Append to ```/boot/config.txt```:
 
-        device_tree=bcm2837-rpi-3-b-cobalt.dtb
+        device_tree=bcm2837-rpi-3-b.dtb
         kernel=kernel-xenomai.img
 
 * Append to ```/boot/cmdline.txt```:
