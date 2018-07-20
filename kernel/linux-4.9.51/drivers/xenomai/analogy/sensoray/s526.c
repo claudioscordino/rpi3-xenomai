@@ -1,1 +1,0 @@
-/home/claudio/work/xenomai/xenomai-3.0.6/kernel/drivers/analogy/sensoray/s526.c
