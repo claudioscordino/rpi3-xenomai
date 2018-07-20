@@ -6,9 +6,9 @@
 #include <cobalt/kernel/rtdm/driver.h>
 
 // PIN29 -> GPIO5
-#define GPIO_IN  975
+#define GPIO_IN  1999
 // PIN31 -> GPIO6
-#define GPIO_OUT 976
+#define GPIO_OUT 2000
 
 static rtdm_irq_t irq_rtdm;
 
