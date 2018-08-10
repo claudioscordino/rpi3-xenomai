@@ -5,7 +5,7 @@
 
 #include <cobalt/kernel/rtdm/driver.h>
 
-#define PERIOD_NSEC	10000		// 10 usec
+#define PERIOD_NSEC	100000		// 100us
 #define GPIO		1999		// PIN29 -> GPIO5
 
 static rtdm_timer_t timer;
