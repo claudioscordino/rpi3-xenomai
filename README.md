@@ -34,7 +34,9 @@ To cross-compile the kernel follow the next steps:
 
         make kernel
 
-Note that the initial default kernel configuration is stored in the ```kernel/kernel-config``` file.
+The cross-compiler binaries must be in the current ```PATH```.
+
+Note that the initial default kernel configuration is available in the ```kernel/kernel-config``` file.
 
 
 Kernel installation
